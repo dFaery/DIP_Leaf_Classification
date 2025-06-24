@@ -1,0 +1,38 @@
+{% extends 'base.html'%} {% block title%} About {% endblock %} {% block content
+%}
+<style>
+  .container {
+    margin-top: 48px;
+    margin-bottom: 48px;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    border-radius: 10px;    
+  }
+
+  #project-title {
+    text-align: center;
+  }
+
+  p{
+    text-align: justify;
+  }
+</style>
+<div class="container">
+  <h1 id="project-title">Project Description</h1>
+  <ul>
+    <li><b>Latar Belakang</b></li>
+    <p>Daun memiliki banyak bentuk dan salah satu ciri yang bisa digunakan untuk mengenali jenisnya adalah bentuk tulang daunnya seperti menyirip, menjari, sejajar, dan melengkung. yang sering dijumpai di berbagai jenis tumbuhan. </p>
+    <p>Umumnya orang-orang mengenali hal tersebut dengan cara melihat dari bentuk tulang daunnya dan bisa saja setiap orang memiliki hasil yang berbeda-beda. Kesalahan mengklasifikasikan jenis daun tidak hanya berdampak di tingkat identifikasi saja namun juga berpotensi mengakibatkan kurangnya tingkat akurasi penelitian botani, pertanian, hingga pada tingkat pemilihan jenis daun yang digunakan dalam pembuatan obat-obatan berbasis herbal.</p>
+    <p>Topik ini kami pilih dengan tujuan untuk memanfaatkan pengolahan citra digital mengenai proses klasifikasi bentuk tulang daun yang bisa dilakukan dengan otomatis dan lebih konsisten, sehingga dapat berguna sebagai media pembelajaran khususnya mengenai Jenis Tulang Daun.</p>
+
+    <li><b>Tujuan</b></li>
+    <ul>
+      <li>Mengklasifikasikan bentuk tulang daun menjadi 3 jenis utama: menjari, menyirip, sejajar menggunakan proses citra digital.</li>
+      <li>Meningkatkan konsistensi dan akurasi dalam proses identifikasi jenis tulang daun secara otomatis.</li>
+      <li>Sebagai media pembelajaran yang dapat membantu pelajar dan masyarakat dalam memahami jeni-jenis tulang daun secara lebih mudah dan interaktif.</li>
+    </ul>
+  </ul>
+</div>
+{% endblock %}
