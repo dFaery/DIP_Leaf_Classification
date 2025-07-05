@@ -68,10 +68,29 @@ content %}
         </div>
         <!-- HASIL PREDIKSI -->
         {% if prediction %}
-        <div style="margin-top: 30px; text-align: center;">
-          <h3>Hasil Prediksi:</h3>
-          <p style="font-size: 20px; text-transform: capitalize;">{{ prediction }}</p>  
-          <img src="{{ image_path }}" alt="Gambar Daun" srcset="" style="max-width: 300px;">               
+        <div style="margin-top: 30px; text-align: center; display: grid; justify-items: center;">
+          <div>
+            <h3>Hasil Prediksi:</h3>
+            <p style="font-size: 20px; text-transform: capitalize;">{{ prediction }}</p>
+            <img src="{{ image_path }}" alt="Gambar Daun" style="max-width: 300px;">
+            <p><strong>Confidence:</strong> {{ confidence }}%</p>
+          </div>
+          <table style="border-collapse: collapse; width: 100%; max-width: 400px;">
+            <thead>
+              <tr style="background-color: #f2f2f2;">
+                <th style="padding: 8px; border: 1px solid #ddd;">Kelas</th>
+                <th style="padding: 8px; border: 1px solid #ddd;">Tingkat Keyakinan (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for label, prob in class_probs %}
+              <tr>
+                <td style="padding: 8px; border: 1px solid #ddd;">{{ label }}</td>
+                <td style="padding: 8px; border: 1px solid #ddd;">{{ prob }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
         {% endif %}
         <button id="btn-classify" value="prediksi">Please Selected an Image</button>

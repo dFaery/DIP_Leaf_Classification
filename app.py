@@ -21,6 +21,8 @@ model = joblib.load('model/svm_model_klasifikasi_daun.pkl')
 @app.route("/home")
 def home_page():
     prediction = session.pop('prediction', None)
+    confidence = session.pop('confidence', None)
+    class_probs = session.pop('class_probs', None)
     image_path = session.pop('image_path', None)
     error_message = session.pop('error_message', None)
 
@@ -45,10 +47,18 @@ def home_page():
 
             if processed_image is not None:
                 # Lakukan prediksi
+                # Probabilitas prediksi (array of probabilities)
+                probs = model.predict_proba([processed_image.flatten()])[0]  # ex: [0.1, 0.9]
                 prediction_result = model.predict([processed_image.flatten()])[0]
+                confidence = np.max(probs)  # nilai tertinggi dari probabilitas
+                
+                class_probs = dict(zip(model.classes_, probs))  # {'Mangga': 0.12, 'Jambu': 0.87, dst}
+                class_probs_sorted = sorted(class_probs.items(), key=lambda x: x[1], reverse=True)  # urut dari tertinggi
                 
                 # Simpan hasil ke session
                 session['prediction'] = str(prediction_result) # Konversi ke string untuk session
+                session['confidence'] = round(confidence * 100, 2)
+                session['class_probs'] = [(label, round(prob * 100, 2)) for label, prob in class_probs_sorted]
                 session['image_path'] = url_for('static', filename='uploads/' + filename)
 
             else:
@@ -56,7 +66,7 @@ def home_page():
 
             return redirect(url_for('home_page')) # redirect setelah POST
 
-    return render_template('home.html', active_home='active', prediction=prediction, image_path=image_path, error_message=error_message)
+    return render_template('home.html', active_home='active', prediction=prediction,confidence=confidence, class_probs = class_probs, image_path=image_path, error_message=error_message)
 
 @app.route("/about")
 def about_page():
